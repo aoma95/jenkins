@@ -39,7 +39,7 @@ pipeline{
         script{
         //catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
           sh '''
-            curl localhost:8081 | grep -q "Contdsfact"
+            curl localhost:8081 | grep -q "Contact"
           '''
         }
       }
@@ -51,7 +51,7 @@ pipeline{
       steps{
         script{
           sh '''
-          echo 'deployer'
+          docker stop ${CONTAINER_NAME} && docker rm  ${CONTAINER_NAME}
           '''
         }
       }
