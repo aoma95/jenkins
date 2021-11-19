@@ -24,7 +24,7 @@ pipeline{
       steps{
         script{
           sh '''
-            docker run -d --name ${CONTAINER_NAME} -e PORT=5000 -p 5000:5000 ${IMAGE_NAME}:${IMAGE_TAG}
+            docker run -d --name ${CONTAINER_NAME} -e PORT=8080 -p 8080:80 ${IMAGE_NAME}:${IMAGE_TAG}
           '''
         }
       }
@@ -35,7 +35,7 @@ pipeline{
       steps{
         script{
           sh '''
-            curl localhost:5000 | grep -q "Hello world!"
+            curl localhost:8080 | grep -q "Hello world!"
           '''
         }
       }
