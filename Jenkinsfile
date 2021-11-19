@@ -1,5 +1,7 @@
 pipeline{
   environment{
+    IMAGE_NAME = "website"
+    IMAGE_TAG = "${BUILD_TAG}"
     STAGING = "ynov-dan-staging"
     PRODUCTION = "ynov-dan-prod"
   }
@@ -15,6 +17,15 @@ pipeline{
         }
       }
     }
+    stage ('Build Stage'){
+      agent any
+      steps{
+        script{
+          sh 'docker build -t ${IMAGE_NAME}:${IMAGE_TAG} .'
+        }
+      }
+    }
+
       
     stage ('Run Container based on builded image'){
       agent any
