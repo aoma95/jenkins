@@ -7,7 +7,7 @@ services:
     image: website:lts
     container_name: website
     ports:
-      - "8080:80"
+      - "8081:80"
     networks:
       - app
 
