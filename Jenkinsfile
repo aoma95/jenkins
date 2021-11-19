@@ -1,6 +1,7 @@
 pipeline{
   environment{
     IMAGE_NAME = "website"
+    IPPROD = 
     CONTAINER_NAME = "theweb"
     IMAGE_TAG = "${BUILD_TAG}"
     STAGING = "ynov-dan-staging"
@@ -35,23 +36,37 @@ pipeline{
         script{
         //catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
           sh '''
-            curl localhost:8081 | grep -q "Contact"
+            curl localhost:8081 | grep -q "Contdsfact"
           '''
         }
       }
 
       }
     
-    stage ('Delete Container'){
+    stage ('deploy'){
       agent any
       steps{
         script{
           sh '''
-            docker stop ${CONTAINER_NAME}
-            docker rm ${CONTAINER_NAME}
+          echo 'deployer'
           '''
         }
       }
     }
+    
+    stage('Deploy app on EC2-cloud Production') {
+            steps{
+                withCredentials([sshUserPrivateKey(credentialsId: "ssh_prod", keyFileVariable: 'keyfile', usernameVariable: 'NUSER')]) {
+                    catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                        script{ 
+                            sh'''
+                                ssh -o StrictHostKeyChecking=no -i ${keyfile} ${NUSER}@${IPPROD} -C \'sudo docker rm -f static-webapp-prod\'
+                                ssh -o StrictHostKeyChecking=no -i ${keyfile} ${NUSER}@${IPPROD} -C \'sudo docker run -d --name static-webapp-prod  -e PORT=80 -p 80:80 sadofrazer/alpinehelloworld\'
+                            '''
+                        }
+                    }
+                }
+            }
+        }
   }
 }
