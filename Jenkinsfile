@@ -23,7 +23,7 @@ pipeline{
       steps{
         script{
           sh '''
-            docker run -d --name ${CONTAINER_NAME} -p 8080:80 ${IMAGE_NAME}:${IMAGE_TAG}
+            docker run -d --name ${CONTAINER_NAME} -p 8081:80 ${IMAGE_NAME}:${IMAGE_TAG}
           '''
         }
       }
@@ -34,7 +34,7 @@ pipeline{
       steps{
         script{
           sh '''
-            curl localhost:8080 | grep -q "Hello world!"
+            curl localhost:8081 | grep -q "Hello world!"
           '''
         }
       }
