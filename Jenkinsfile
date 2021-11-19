@@ -1,7 +1,7 @@
 pipeline{
   environment{
     IMAGE_NAME = "website"
-    CONTAINER_NAME = "website"
+    CONTAINER_NAME = "theweb"
     IMAGE_TAG = "${BUILD_TAG}"
     STAGING = "ynov-dan-staging"
     PRODUCTION = "ynov-dan-prod"
