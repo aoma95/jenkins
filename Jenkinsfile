@@ -32,13 +32,24 @@ pipeline{
     stage ('Test image'){
       agent any
       steps{
-        catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+        script{
+        //catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
           sh '''
             curl localhost:8081 | grep -q "Codzfntact"
           '''
         }
       }
-    }
+      post{
+        always { 
+          script{
+            sh '''
+            docker stop ${CONTAINER_NAME}
+            docker rm ${CONTAINER_NAME}
+            '''
+            }
+          }
+       }
+      }
     
     stage ('Delete Container'){
       agent any
