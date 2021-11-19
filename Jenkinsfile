@@ -22,11 +22,14 @@ pipeline{
     stage ('Run Container based on builded image'){
       agent any
       steps{
+        catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
         script{
           sh '''
+            docker stop ${CONTAINER_NAME} && docker rm  ${CONTAINER_NAME}
             docker run -d --name ${CONTAINER_NAME} -p 8081:80 ${IMAGE_NAME}:${IMAGE_TAG}
           '''
         }
+      }
       }
     }
     
