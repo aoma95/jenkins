@@ -32,9 +32,9 @@ pipeline{
     stage ('Test image'){
       agent any
       steps{
-        script{
+        catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
           sh '''
-            curl localhost:8081 | grep -q "Contact"
+            curl localhost:8081 | grep -q "Codzfntact"
           '''
         }
       }
