@@ -35,7 +35,7 @@ pipeline{
         script{
         //catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
           sh '''
-            curl localhost:8081 | grep -q "Codzfntact" && docker stop ${CONTAINER_NAME} && docker rm ${CONTAINER_NAME}
+            curl localhost:8081 | grep -q "Contact"
           '''
         }
       }
