@@ -7,11 +7,11 @@ pipeline{
   
   stages{
     
-    stage ('Build Stage'){
+    stage ('build & create'){
       agent any
       steps{
         script{
-          sh 'docker build -t ${IMAGE_NAME}:${IMAGE_TAG} .'
+          sh 'docker-compose -f docker-compose.yml up -d'
         }
       }
     }
