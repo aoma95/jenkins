@@ -83,6 +83,14 @@ pipeline{
                 }
             }
         }
+     stage ('test online'){
+      agent any
+      steps{
+        script{
+          sh 'curl ${IPPROD}:8080 | grep -q "Contact"'
+        }
+      }
+    }
   }
   post {
         always{
