@@ -62,6 +62,7 @@ pipeline{
       steps{
         script{
           sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+          sh 'docker image tag ${IMAGE_NAME}:${IMAGE_TAG} aoma95/${IMAGE_NAME}:${IMAGE_TAG}'
           sh 'docker push aoma95/tp:${IMAGE_TAG}'
         }
       }
