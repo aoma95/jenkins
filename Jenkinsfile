@@ -75,7 +75,7 @@ pipeline{
                         script{ 
                             sh'''
                                 ssh -o StrictHostKeyChecking=no -i ${keyfile} ${NUSER}@${IPPROD} -C \'docker rm -f static-webapp-prod-dan\'
-                                ssh -o StrictHostKeyChecking=no -i ${keyfile} ${NUSER}@${IPPROD} -C \'docker run -d --name static-webapp-prod-dan -p 8080:80 aoma95/$IMAGE_NAME:$IMAGE_TAG\'
+                                ssh -o StrictHostKeyChecking=no -i ${keyfile} ${NUSER}@${IPPROD} -C 'docker run -d --name static-webapp-prod-dan -p 8080:80 aoma95/${IMAGE_NAME}:${IMAGE_TA}'
                             ''' 
                         }
                     }
