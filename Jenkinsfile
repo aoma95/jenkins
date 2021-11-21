@@ -63,8 +63,8 @@ pipeline{
                     catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                         script{ 
                             sh'''
-                                ssh -o StrictHostKeyChecking=no -i ${keyfile} ${NUSER}@${IPPROD} -C \'sudo docker rm -f static-webapp-prod\'
-                                ssh -o StrictHostKeyChecking=no -i ${keyfile} ${NUSER}@${IPPROD} -C \'sudo docker run -d --name static-webapp-prod  -e PORT=80 -p 80:80 sadofrazer/alpinehelloworld\'
+                                ssh -o StrictHostKeyChecking=no -i ${keyfile} ${NUSER}@${IPPROD} -C \'docker rm -f static-webapp-prod\'
+                                ssh -o StrictHostKeyChecking=no -i ${keyfile} ${NUSER}@${IPPROD} -C \'docker run -d --name static-webapp-prod  -e PORT=80 -p 80:80 sadofrazer/alpinehelloworld\'
                             '''
                         }
                     }
