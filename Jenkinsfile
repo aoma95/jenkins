@@ -1,7 +1,7 @@
 pipeline{
   environment{
     IMAGE_NAME = "website"
-    IPPROD = ""
+    IPPROD = "10.13.9.68"
     CONTAINER_NAME = "theweb"
     IMAGE_TAG = "${BUILD_TAG}"
     STAGING = "ynov-dan-staging"
