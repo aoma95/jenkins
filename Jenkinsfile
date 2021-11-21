@@ -1,6 +1,7 @@
 pipeline{
   environment{
-    IMAGE_NAME = "website"
+    DOCKERHUB_CREDENTIALS=credentials('dockerhub_id')
+    IMAGE_NAME = "tp"
     IPPROD = "10.13.9.68"
     CONTAINER_NAME = "theweb"
     IMAGE_TAG = "${BUILD_TAG}"
@@ -46,13 +47,22 @@ pipeline{
 
       }
     
-    stage ('deploy'){
+    stage ('delete container test'){
       agent any
       steps{
         script{
           sh '''
           docker stop ${CONTAINER_NAME} && docker rm  ${CONTAINER_NAME}
           '''
+        }
+      }
+    }
+    stage ('push image in hub'){
+      agent any
+      steps{
+        script{
+          sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+          sh 'docker push aoma95/tp:${IMAGE_TAG}'
         }
       }
     }
