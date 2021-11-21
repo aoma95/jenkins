@@ -7,7 +7,7 @@ pipeline{
     STAGING = "ynov-dan-staging"
     PRODUCTION = "ynov-dan-prod"
   }
-  agent none
+  agent any
   
   stages{
     
