@@ -1,3 +1,4 @@
+@Library('slack-notifier')_
 pipeline{
   environment{
     DOCKERHUB_CREDENTIALS=credentials('dockerhub_id')
@@ -83,4 +84,11 @@ pipeline{
             }
         }
   }
+  post {
+        always{
+            script{
+                slackNotifier currentBuild.result
+            }
+        }
+    }
 }
